@@ -46,7 +46,9 @@ func (server *Server) getReq(writer http.ResponseWriter, request *http.Request) 
 		return
 	}
 
-	server.node.MsgEntrance <- &msg
+	go func() {
+		server.node.MsgEntrance <- &msg
+	}()
 }
 
 func (server *Server) getPrePrepare(writer http.ResponseWriter, request *http.Request) {
@@ -56,8 +58,9 @@ func (server *Server) getPrePrepare(writer http.ResponseWriter, request *http.Re
 		fmt.Println(err)
 		return
 	}
-
-	server.node.MsgEntrance <- &msg
+	go func() {
+		server.node.MsgEntrance <- &msg
+	} ()
 }
 
 func (server *Server) getPrepare(writer http.ResponseWriter, request *http.Request) {
@@ -68,7 +71,9 @@ func (server *Server) getPrepare(writer http.ResponseWriter, request *http.Reque
 		return
 	}
 
-	server.node.MsgEntrance <- &msg
+	go func() {
+		server.node.MsgEntrance <- &msg
+	} ()
 }
 
 func (server *Server) getCommit(writer http.ResponseWriter, request *http.Request) {
@@ -79,7 +84,9 @@ func (server *Server) getCommit(writer http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	server.node.MsgEntrance <- &msg
+	go func() {
+		server.node.MsgEntrance <- &msg
+	} ()
 }
 
 func (server *Server) getReply(writer http.ResponseWriter, request *http.Request) {
@@ -90,7 +97,9 @@ func (server *Server) getReply(writer http.ResponseWriter, request *http.Request
 		return
 	}
 
-	server.node.GetReply(&msg)
+	go func() {
+		server.node.GetReply(&msg)
+	} ()
 }
 
 func send(url string, msg []byte) {
